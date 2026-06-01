@@ -1,27 +1,47 @@
-# MarkItDown Native
+# MarkItNative
 
-This is a blazingly fast, pure Rust, local-first document parsing engine. It converts PDFs, Word Documents, HTML, and text files into LLM-readable Markdown entirely on your local machine—no Python environment or cloud APIs required.
+MarkItNative is a blazingly fast, pure Rust, local-first document parsing engine wrapped in a modern Tauri interface. It converts PDFs, Word Documents, HTML, and text files into LLM-readable Markdown entirely on your local machine—no Python environment, cloud APIs, or external dependencies required.
 
-## What's in this folder?
-You will see two standalone executable files:
-1. `markitdown-app.exe` (The visual drag-and-drop UI)
-2. `mcp-server.exe` (The headless background server for your IDE)
-
----
-
-## 1. Using the Desktop App (Manual Mode)
-If you just want to quickly convert a file to Markdown to read or copy:
-* Double-click `markitdown-app.exe`.
-* Drag and drop any PDF, DOCX, or text file into the window.
-* Click "Save as .md" if you want to save the physical output file to your machine.
+## Features
+- **Desktop Application:** A hyper-minimalist, drag-and-drop UI for manually converting documents to Markdown.
+- **Headless MCP Server:** A background server (`mcp-server.exe`) that allows AI coding agents (like Roo Code, Cline, etc.) to natively read and process your local documents directly inside your IDE.
+- **Local-First Processing:** Everything happens on your machine using efficient Rust libraries (like `candle-core`, `pdf-extract`, and `dotext`).
 
 ---
 
-## 2. Using the VS Code AI Agent (MCP Mode)
-The real power of this architecture is letting your VS Code AI (like Roo Code or Cline) silently read your local documents in the background without cluttering your project with `.md` files.
+## Installation (Pre-built Binaries)
+
+You can download the pre-compiled executables from the [Releases](../../releases) page. The release contains two files:
+1. `markitnative.exe` - The main desktop application.
+2. `mcp-server.exe` - The headless Model Context Protocol (MCP) server.
+
+---
+
+## Building from Source
+
+If you prefer to build MarkItNative from source, ensure you have [Rust](https://www.rust-lang.org/), [Node.js](https://nodejs.org/), and the [Tauri prerequisites](https://tauri.app/v1/guides/getting-started/prerequisites) installed.
+
+```bash
+# Clone the repository
+git clone https://github.com/Tamilselvan2/MarkItNative.git
+cd MarkItNative
+
+# Install frontend dependencies
+npm install
+
+# Build the desktop app and MCP server
+npm run tauri build
+```
+The compiled binaries will be located in `src-tauri/target/release/`.
+
+---
+
+## Using the VS Code AI Agent (MCP Mode)
+
+The real power of this architecture is letting your VS Code AI silently read your local documents in the background without cluttering your project with temporary `.md` files.
 
 **Setup Instructions:**
-1. Move the `mcp-server.exe` file to a permanent, safe folder on your computer (e.g., `C:\Tools\MarkItDown\mcp-server.exe`).
+1. Download or build `mcp-server.exe` and move it to a permanent, safe folder on your computer (e.g., `C:\Tools\MarkItNative\mcp-server.exe`).
 2. Open VS Code.
 3. Press **Ctrl + Shift + P** to open the Command Palette.
 4. Search for your AI's MCP settings (e.g., `Roo Code: MCP Servers` or `Cline: MCP Servers`).
@@ -42,3 +62,4 @@ The real power of this architecture is letting your VS Code AI (like Roo Code or
     }
   }
 }
+```
