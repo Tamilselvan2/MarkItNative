@@ -110,7 +110,7 @@ function App() {
       <div className="w-full max-w-3xl bg-white rounded-2xl border border-stone-200 p-8 z-10 relative">
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-medium tracking-tight">MarkIt<span className="font-bold">Down</span> Native</h1>
+          <h1 className="text-3xl font-medium tracking-tight">MarkIt<span className="font-bold">Native</span></h1>
           <p className="text-stone-500 mt-2 text-sm">Convert documents to Markdown instantly for AI processing</p>
         </div>
 

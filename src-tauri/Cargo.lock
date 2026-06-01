@@ -2683,7 +2683,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "markitdown-native"
+name = "markitnative"
 version = "1.0.0"
 dependencies = [
  "anyhow",

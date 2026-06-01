@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "markitdown-mcp": {
-      "command": "d:/MarkItDown/markitdown-app/src-tauri/target/debug/mcp-server.exe",
+      "command": "d:/MarkItDown/src-tauri/target/debug/mcp-server.exe",
       "args": [],
       "env": {}
     }

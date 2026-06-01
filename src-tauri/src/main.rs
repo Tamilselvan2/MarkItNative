@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    markitdown_native_lib::run()
+    markitnative_lib::run()
 }

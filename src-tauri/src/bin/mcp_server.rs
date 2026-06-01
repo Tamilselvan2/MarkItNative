@@ -115,7 +115,7 @@ async fn main() -> anyhow::Result<()> {
 }
 
 fn process_file(path_str: &str) -> String {
-    match markitdown_native_lib::parser::parse_file(path_str) {
+    match markitnative_lib::parser::parse_file(path_str) {
         Ok(content) => content,
         Err(e) => format!("Error parsing file: {}", e)
     }
