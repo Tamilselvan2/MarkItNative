@@ -26,16 +26,19 @@ metal = ["candle-core/metal", "candle-nn/metal", "candle-transformers/metal"]
 tauri = { version = "2", features = [] }
 pdf-extract = "0.10.0"
 dotext = "0.1.1"
-candle-core = "0.8.2"
-candle-nn = "0.8.2"
-candle-transformers = "0.8.2"
+candle-core = "0.10.2"
+candle-nn = "0.10.2"
+candle-transformers = "0.10.2"
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tauri-plugin-dialog = "2"
 tokio = { version = "1", features = ["full"] }
 anyhow = "1"
-
+hf-hub = "0.4.3"
+image = "0.25.1"
+tokenizers = "0.19.1"
+pdfium-render = "0.8.21"
 [[bin]]
 name = "mcp-server"
 path = "src/bin/mcp_server.rs"

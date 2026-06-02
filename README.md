@@ -1,11 +1,12 @@
 # MarkItNative
 
-MarkItNative is a blazingly fast, pure Rust, local-first document parsing engine wrapped in a modern Tauri interface. It converts PDFs, Word Documents, HTML, and text files into LLM-readable Markdown entirely on your local machine—no Python environment, cloud APIs, or external dependencies required.
+MarkItNative is a blazingly fast, pure Rust, local-first document parsing engine wrapped in a modern Tauri interface. It converts PDFs, Word Documents, HTML, Text, and Images (OCR) into LLM-readable Markdown entirely on your local machine—no Python environment, cloud APIs, or external dependencies required.
 
 ## Features
 - **Desktop Application:** A hyper-minimalist, drag-and-drop UI for manually converting documents to Markdown.
 - **Headless MCP Server:** A background server (`mcp-server.exe`) that allows AI coding agents (like Roo Code, Cline, etc.) to natively read and process your local documents directly inside your IDE.
-- **Local-First Processing:** Everything happens on your machine using efficient Rust libraries (like `candle-core`, `pdf-extract`, and `dotext`).
+- **Local-First Processing:** Everything happens on your machine using efficient Rust libraries (`candle-core`, `pdf-extract`, `dotext`, and `pdfium-render`).
+- **Native Vision-Language OCR:** Extracts text, tables, and layouts from images and scanned PDFs using the 4-bit quantized **Moondream2** VLM running directly on your GPU.
 
 ---
 
@@ -33,6 +34,20 @@ npm install
 npm run tauri build
 ```
 The compiled binaries will be located in `src-tauri/target/release/`.
+
+---
+
+## Vision-Language OCR Pipeline (Image & Scanned PDF Flow)
+
+MarkItNative natively supports OCR and structural extraction for Images (PNG, JPG) and scanned PDFs using a hardware-accelerated Vision-Language Model.
+
+**How it works:**
+1. **Detection:** When a file is processed, `parser.rs` attempts standard text extraction. If an image is passed, or if a `.pdf` yields zero text (indicating a scanned document), it triggers the `gpu_ocr_fallback()`.
+2. **PDF Rasterization:** For PDFs, the system binds to `pdfium.dll` dynamically, rendering the PDF page to a crisp 2000px image buffer in memory.
+3. **Moondream2 Processing:** The image buffer is fed into the `santiagomed/candle-moondream` 4-bit Quantized GGUF model via Hugging Face Hub. 
+4. **Precision Decoding:** The model uses strict mathematical greedy decoding (`.argmax()`) to guarantee exact text extraction without LLM hallucinations.
+
+*(Note: Running the OCR pipeline requires downloading the `pdfium.dll` binary into your execution directory).*
 
 ---
 
