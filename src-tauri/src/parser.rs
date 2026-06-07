@@ -10,27 +10,11 @@ fn gpu_ocr_fallback(file_path: &str) -> Result<String, String> {
 }
 
 pub fn sanitize_output(raw_text: &str) -> String {
-    let mut sanitized = String::new();
-    let mut consecutive_newlines = 0;
-
-    for line in raw_text.lines() {
-        let trimmed = line.trim_end();
-        if trimmed.is_empty() {
-            consecutive_newlines += 1;
-        } else {
-            if consecutive_newlines > 0 {
-                if !sanitized.is_empty() {
-                    sanitized.push_str("\n\n");
-                }
-            } else if !sanitized.is_empty() {
-                sanitized.push('\n');
-            }
-            sanitized.push_str(trimmed);
-            consecutive_newlines = 0;
-        }
-    }
-
-    sanitized
+    raw_text
+        .lines()
+        .filter(|line| !line.trim().is_empty())
+        .collect::<Vec<&str>>()
+        .join("\n")
 }
 
 pub fn parse_file(file_path: &str) -> Result<String, String> {
